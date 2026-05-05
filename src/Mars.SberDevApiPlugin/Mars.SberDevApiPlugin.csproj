@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <!--Author-->
+        <PackageId>mdimai666.Mars.SberDevApiPlugin</PackageId>
+        <Version>0.0.1</Version>
+        <PackageVersion>0.0.1</PackageVersion>
+        <!--Public-->
+        <Authors>mdimai666</Authors>
+        <Company>mdimai666</Company>
+        <Product>Mars.SberDevApiPlugin</Product>
+        <PackageTags>Mars;Sber devices</PackageTags>
+        <Description>
+            Provide sber devices functions for Mars
+            - Speech API
+        </Description>
+
+        <EnableDynamicLoading>true</EnableDynamicLoading>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.7" PrivateAssets="all" />
+        <PackageReference Include="mdimai666.Mars.Plugin.Kit.Host" Version="0.7.4-alpha.10" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Mars.SberDevApiPlugin.Front\Mars.SberDevApiPlugin.Front.csproj" />
+        <ProjectReference Include="..\SaluteSpeechAPI\SaluteSpeechAPI.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Update="appsettings.local.json">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <Target Name="RunPostPublishScript" AfterTargets="111Publish" Condition="'$(Configuration)' == 'Release'">
+        <Exec Command="dotnet $(OutDir)Mars.Plugin.PluginPublishScript.dll --run-postpublish --ProjectName=$(ProjectName) --out=$(PublishDir) --ProjectDir=$(ProjectDir)" />
+    </Target>
+
+    <Target Name="RunPostCompileDebugScript" AfterTargets="111CoreBuild" Condition="'$(Configuration)' == 'Debug'">
+        <Exec Command="dotnet $(OutDir)Mars.Plugin.PluginPublishScript.dll --run-postdebugcompile --ProjectName=$(ProjectName) --out=$(OutDir) --ProjectDir=$(ProjectDir)" />
+    </Target>
+
+</Project>

@@ -1,0 +1,42 @@
+@using AppFront.Shared.Components
+@using Mars.Nodes.Core
+@using Mars.Nodes.Core.Attributes
+@using Mars.Nodes.FormEditor
+@using Mars.Nodes.FormEditor.EditForms.Components
+@using Microsoft.FluentUI.AspNetCore.Components
+@inherits NodeEditForm
+@attribute [NodeEditFormForNode(typeof(SaluteSpeechSynthesisNode))]
+
+<div class="form-group compact" style="--fluent-input-label-basis:150px">
+    <div class="vstack gap-2">
+
+        <FormItem2 For="() => Node.Config">
+            <InputConfigField @bind-Value=@Node.Config TConfig="SaluteSpeechConfigNode" />
+        </FormItem2>
+
+        <FormItem2 For="() => Node.Language">
+            <FluentSelect Items="SaluteSpeechSynthesisNode.AvailableLanguages"
+                          Appearance="Appearance.Outline"
+                          Position="SelectPosition.Below"
+                          OptionValue="@(v=>v.Key)"
+                          OptionText="@(v=>v.Value)"
+                          @bind-Value="@Node.Language" />
+        </FormItem2>
+
+        <FormItem2 For="() => Node.VoiceId">
+            <FluentSelect Items="SaluteSpeechSynthesisNode.AvailableVoices"
+                          Appearance="Appearance.Outline"
+                          Position="SelectPosition.Below"
+                          OptionValue="@(v=>v.Key)"
+                          OptionText="@(v=>v.Value)"
+                          @bind-Value="@Node.VoiceId" />
+        </FormItem2>
+
+    </div>
+</div>
+
+@code {
+    [CascadingParameter] Node? Value { get; set; }
+    SaluteSpeechSynthesisNode Node { get => (SaluteSpeechSynthesisNode)Value!; set => Value = value; }
+
+}

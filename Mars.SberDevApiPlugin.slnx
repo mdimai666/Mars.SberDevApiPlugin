@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/devStands/">
+    <Project Path="src/SberDevApiPluginConsoleApp/SberDevApiPluginConsoleApp.csproj" />
+  </Folder>
+  <Project Path="src/Mars.SberDevApiPlugin.Front/Mars.SberDevApiPlugin.Front.csproj" />
+  <Project Path="src/Mars.SberDevApiPlugin/Mars.SberDevApiPlugin.csproj" />
+  <Project Path="src/SaluteSpeechAPI/SaluteSpeechAPI.csproj" Id="c37594cf-744a-4abe-bad5-e67f1d75b450" />
+</Solution>

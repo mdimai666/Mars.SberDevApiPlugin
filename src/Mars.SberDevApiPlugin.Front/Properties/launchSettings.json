@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Mars.SberDevApiPlugin.Front": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:3193;http://localhost:3194"
+    }
+  }
+}
