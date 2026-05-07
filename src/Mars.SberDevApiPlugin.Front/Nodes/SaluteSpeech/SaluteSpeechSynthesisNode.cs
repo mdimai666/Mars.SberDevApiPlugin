@@ -3,7 +3,7 @@ using Mars.Core.Attributes;
 using Mars.Nodes.Core;
 using Mars.Nodes.Core.Fields;
 
-namespace Mars.SberDevApiPlugin.Front.Nodes;
+namespace Mars.SberDevApiPlugin.Front.Nodes.SaluteSpeech;
 
 [FunctionApiDocument("./_plugin/Mars.SberDevApiPlugin/nodes/docs/SaluteSpeechSynthesisNode/SaluteSpeechSynthesisNode{.lang}.md")]
 [Display(GroupName = "voice")]

@@ -1,10 +1,10 @@
 using Mars.Core.Extensions;
 using Mars.Nodes.Core;
 using Mars.Nodes.Core.Implements;
-using Mars.SberDevApiPlugin.Front.Nodes;
+using Mars.SberDevApiPlugin.Front.Nodes.SaluteSpeech;
 using Mars.SberDevApiPlugin.Services;
 
-namespace Mars.SberDevApiPlugin.NodesImplement;
+namespace Mars.SberDevApiPlugin.NodesImplement.SaluteSpeech;
 
 internal class SaluteSpeechSynthesisNodeImpl : INodeImplement<SaluteSpeechSynthesisNode>, INodeImplement
 {

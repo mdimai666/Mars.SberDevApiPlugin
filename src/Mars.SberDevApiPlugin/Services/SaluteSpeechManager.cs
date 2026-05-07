@@ -1,6 +1,6 @@
 using Mars.Host.Shared.Services;
 using Mars.Host.Shared.Startup;
-using Mars.SberDevApiPlugin.Front.Nodes;
+using Mars.SberDevApiPlugin.Front.Nodes.SaluteSpeech;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using SaluteSpeechAPI;
@@ -46,7 +46,7 @@ internal class SaluteSpeechManager : IMarsAppLifetimeService
     }
 
     public static string ClientCacheKey(string configId)
-        => $"SynthesisCache-{configId}";
+        => $"SynthesisClient-{configId}";
 
     public SynthesisCache GetClient(SaluteSpeechConfigNode configNode)
     {

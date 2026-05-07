@@ -16,6 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\GigaChatAPI\GigaChatAPI.csproj" />
         <ProjectReference Include="..\SaluteSpeechAPI\SaluteSpeechAPI.csproj" />
     </ItemGroup>
 

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using Mars.Core.Attributes;
 using Mars.Nodes.Core.Nodes;
 
-namespace Mars.SberDevApiPlugin.Front.Nodes;
+namespace Mars.SberDevApiPlugin.Front.Nodes.SaluteSpeech;
 
 [FunctionApiDocument("./_plugin/Mars.SberDevApiPlugin/nodes/docs/SaluteSpeechConfigNode/SaluteSpeechConfigNode{.lang}.md")]
 [Display(GroupName = "voice")]

@@ -1,0 +1,71 @@
+@using AppFront.Shared.Components
+@using Mars.Core.Extensions
+@using Mars.Nodes.Core
+@using Mars.Nodes.Core.Attributes
+@using Mars.Nodes.FormEditor
+@using Mars.Nodes.FormEditor.EditForms.Components
+@using Mars.WebApiClient.Interfaces
+@using Microsoft.FluentUI.AspNetCore.Components
+@using Flurl.Http;
+
+@inherits NodeEditForm
+@attribute [NodeEditFormForNode(typeof(GigaChatRequestNode))]
+
+<div class="form-group compact" style="--fluent-input-label-basis:150px">
+    <div class="vstack gap-2">
+
+        <FormItem2 For="() => Node.Config">
+            <InputConfigField @bind-Value=@Node.Config TConfig="GigaChatConfigNode" />
+        </FormItem2>
+
+        <FormItem2 For="() => Node.ModelId">
+            <FluentSelect Items="_availableModels"
+                          Appearance="Appearance.Outline"
+                          Position="SelectPosition.Below"
+                          OptionValue="@(v=>v.Key)"
+                          OptionText="@(v=>v.Value)"
+                          @bind-Value="@Node.ModelId" />
+            <FluentProgressRing Visible="_modelsBusy" />
+        </FormItem2>
+
+        <FormItem2 For="() => Node.Prompt">
+            <FluentTextArea @bind-Value=@Node.Prompt Class="w-100" Rows="4" Placeholder="msg.Paylaod" />
+        </FormItem2>
+
+        <FormItem2 For="() => Node.SystemPrompt">
+            <FluentTextArea @bind-Value=@Node.SystemPrompt Class="w-100" Rows="4" />
+        </FormItem2>
+
+    </div>
+</div>
+
+@code {
+    [CascadingParameter] Node? Value { get; set; }
+    GigaChatRequestNode Node { get => (GigaChatRequestNode)Value!; set => Value = value; }
+
+    [Inject] IMarsWebApiClient _client { get; set; } = default!;
+
+    Dictionary<string, string> _availableModels = [];
+
+    bool _modelsBusy = false;
+
+    protected override void OnParametersSet()
+    {
+        LoadModels();
+    }
+
+    async void LoadModels()
+    {
+        if (_availableModels.None())
+        {
+            _modelsBusy = true;
+            StateHasChanged();
+
+            _availableModels = await _client.Client.Request(GigaChatRequestNode.ModelsApiEndpoint)
+                                                    .AppendQueryParam("configNodeId", Node.Config.Id)
+                                                    .GetJsonAsync<Dictionary<string, string>>();
+            _modelsBusy = false;
+            StateHasChanged();
+        }
+    }
+}
