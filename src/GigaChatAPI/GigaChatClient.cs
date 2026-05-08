@@ -1,6 +1,7 @@
 using System.Net.Http.Json;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using GigaChatAPI.Models;
 
@@ -83,7 +84,7 @@ public class GigaChatClient : IDisposable
         }
     }
 
-    private async Task<HttpClient> GetAuthorizedClientAsync(CancellationToken cancellationToken = default)
+    public async Task<HttpClient> GetAuthorizedClientAsync(CancellationToken cancellationToken = default)
     {
         var token = await GetBearerTokenAsync(cancellationToken);
         var client = new HttpClient
@@ -148,7 +149,7 @@ public class GigaChatClient : IDisposable
         return chatResponse.Choices[0].Message.Content;
     }
 
-    public async Task<ChatResponse> SendMessageFullResponseAsync(
+    public Task<ChatResponse> SendMessageFullResponseAsync(
         string message,
         string model = "GigaChat",
         double temperature = 0.7,
@@ -170,11 +171,21 @@ public class GigaChatClient : IDisposable
             request.Messages.AddRange(conversationHistory);
         }
 
-        request.Messages.Add(new ChatMessage
+        if (!string.IsNullOrEmpty(message))
         {
-            Role = "user",
-            Content = message
-        });
+            request.Messages.Add(new ChatMessage
+            {
+                Role = "user",
+                Content = message
+            });
+        }
+
+        return SendMessageFullResponseAsync(request, cancellationToken);
+    }
+
+    public async Task<ChatResponse> SendMessageFullResponseAsync(ChatRequest request, CancellationToken cancellationToken)
+    { 
+        var requestJson = JsonSerializer.Serialize(request, new JsonSerializerOptions() { WriteIndented = true, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping });
 
         using var client = await GetAuthorizedClientAsync(cancellationToken);
         var response = await client.PostAsJsonAsync("/api/v1/chat/completions", request, cancellationToken);

@@ -12,10 +12,12 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.SemanticKernel" Version="1.75.0" />
         <PackageReference Include="NAudio" Version="2.3.0" />
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\GigaChat.SemanticKernel\GigaChat.SemanticKernel.csproj" />
         <ProjectReference Include="..\GigaChatAPI\GigaChatAPI.csproj" />
         <ProjectReference Include="..\SaluteSpeechAPI\SaluteSpeechAPI.csproj" />
     </ItemGroup>

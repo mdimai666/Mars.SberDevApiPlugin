@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/APIs/">
+    <Project Path="src/GigaChat.SemanticKernel/GigaChat.SemanticKernel.csproj" Id="5d460797-40c0-48b4-a715-b30db03f86f1" />
     <Project Path="src/GigaChatAPI/GigaChatAPI.csproj" Id="dcf22354-1458-448d-b734-120c93fd9d94" />
     <Project Path="src/SaluteSpeechAPI/SaluteSpeechAPI.csproj" Id="c37594cf-744a-4abe-bad5-e67f1d75b450" />
   </Folder>

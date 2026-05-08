@@ -38,10 +38,19 @@ public class ModelInfo
 public class ChatMessage
 {
     [JsonPropertyName("role")]
-    public string Role { get; set; } = string.Empty; // "user", "assistant", "system"
+    public string Role { get; set; } = string.Empty; // "user", "assistant", "system", "function"
 
     [JsonPropertyName("content")]
     public string Content { get; set; } = string.Empty;
+
+    [JsonPropertyName("name")]
+    public string? Name { get; set; } // For function responses
+
+    [JsonPropertyName("functions_state_id")]
+    public string? FunctionsStateId { get; set; }
+
+    [JsonPropertyName("function_call")]
+    public FunctionCall? FunctionCall { get; set; }
 }
 
 public class ChatRequest
@@ -61,8 +70,23 @@ public class ChatRequest
     [JsonPropertyName("temperature")]
     public double? Temperature { get; set; }
 
+    [JsonPropertyName("top_p")]
+    public double? TopP { get; set; }
+
     [JsonPropertyName("max_tokens")]
     public int? MaxTokens { get; set; }
+
+    [JsonPropertyName("frequency_penalty")]
+    public double? FrequencyPenalty { get; set; }
+
+    [JsonPropertyName("presence_penalty")]
+    public double? PresencePenalty { get; set; }
+
+    [JsonPropertyName("functions")]
+    public List<FunctionDefinition>? Functions { get; set; }
+
+    [JsonPropertyName("function_call")]
+    public string? FunctionCall { get; set; } // "auto", "none", or specific function name
 }
 
 public class ChatResponse
@@ -86,7 +110,7 @@ public class ChatResponse
 public class Choice
 {
     [JsonPropertyName("finish_reason")]
-    public string FinishReason { get; set; } = string.Empty;
+    public string FinishReason { get; set; } = string.Empty; // "stop", "function_call", "length"
 
     [JsonPropertyName("index")]
     public int Index { get; set; }
@@ -108,4 +132,28 @@ public class Usage
 
     [JsonPropertyName("total_tokens")]
     public int TotalTokens { get; set; }
+}
+
+public class FunctionCall
+{
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = string.Empty;
+
+    [JsonPropertyName("arguments")]
+    public Dictionary<string, object>? Arguments { get; set; }
+}
+
+public class FunctionDefinition
+{
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = string.Empty;
+
+    [JsonPropertyName("description")]
+    public string Description { get; set; } = string.Empty;
+
+    [JsonPropertyName("parameters")]
+    public object? Parameters { get; set; }
+
+    [JsonPropertyName("return_parameters")]
+    public object? ReturnParameters { get; set; }
 }
