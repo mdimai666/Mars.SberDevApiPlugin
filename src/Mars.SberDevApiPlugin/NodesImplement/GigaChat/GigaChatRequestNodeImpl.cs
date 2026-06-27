@@ -2,26 +2,26 @@ using System.Diagnostics;
 using GigaChatAPI.Models;
 using Mars.Core.Extensions;
 using Mars.Nodes.Core;
-using Mars.Nodes.Core.Implements;
+using Mars.Nodes.Host.Shared;
 using Mars.SberDevApiPlugin.Front.Nodes.GigaChat;
 using Mars.SberDevApiPlugin.Services;
 
 namespace Mars.SberDevApiPlugin.GigaChat.NodesImplement;
 
-internal class GigaChatRequestNodeImpl : INodeImplement<GigaChatRequestNode>, INodeImplement
+internal class GigaChatRequestNodeImpl : INodeImplement<GigaChatRequestNode>
 {
     private readonly GigaChatManager _gigaChatManager;
 
     public GigaChatRequestNode Node { get; }
-    public IRED RED { get; set; }
-    Node INodeImplement<Node>.Node => Node;
+    public IRuntimeNodeScope RNS { get; set; }
+    Node INodeImplement.Node => Node;
 
-    public GigaChatRequestNodeImpl(GigaChatRequestNode node, IRED red, GigaChatManager gigaChatManager)
+    public GigaChatRequestNodeImpl(GigaChatRequestNode node, IRuntimeNodeScope rns, GigaChatManager gigaChatManager)
     {
         Node = node;
-        RED = red;
+        RNS = rns;
         _gigaChatManager = gigaChatManager;
-        Node.Config = RED.GetConfig(node.Config);
+        Node.Config = RNS.GetConfig(node.Config);
     }
 
     public async Task Execute(NodeMsg input, ExecuteAction callback, ExecutionParameters parameters)
@@ -32,7 +32,7 @@ internal class GigaChatRequestNodeImpl : INodeImplement<GigaChatRequestNode>, IN
 
         var sw = new Stopwatch();
         sw.Start();
-        RED.Status(new NodeStatus("think..."));
+        RNS.Status(new NodeStatus("think..."));
 
         List<ChatMessage>? conversationHistory = null;
 
@@ -61,6 +61,6 @@ internal class GigaChatRequestNodeImpl : INodeImplement<GigaChatRequestNode>, IN
 
         sw.Stop();
         var totalTime = sw.ElapsedMilliseconds > 1000 ? $"{sw.Elapsed.TotalSeconds:0.0}s" : $"{sw.ElapsedMilliseconds / 1000:0.00}ms";
-        RED.Status(new NodeStatus(totalTime + ", tokens: " + response.Usage.TotalTokens));
+        RNS.Status(new NodeStatus(totalTime + ", tokens: " + response.Usage.TotalTokens));
     }
 }

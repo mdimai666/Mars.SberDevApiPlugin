@@ -1,25 +1,25 @@
 using Mars.Core.Extensions;
 using Mars.Nodes.Core;
-using Mars.Nodes.Core.Implements;
+using Mars.Nodes.Host.Shared;
 using Mars.SberDevApiPlugin.Front.Nodes.SaluteSpeech;
 using Mars.SberDevApiPlugin.Services;
 
 namespace Mars.SberDevApiPlugin.NodesImplement.SaluteSpeech;
 
-internal class SaluteSpeechSynthesisNodeImpl : INodeImplement<SaluteSpeechSynthesisNode>, INodeImplement
+internal class SaluteSpeechSynthesisNodeImpl : INodeImplement<SaluteSpeechSynthesisNode>
 {
     private readonly SaluteSpeechManager _saluteSpeechManager;
 
     public SaluteSpeechSynthesisNode Node { get; }
-    public IRED RED { get; set; }
-    Node INodeImplement<Node>.Node => Node;
+    public IRuntimeNodeScope RNS { get; set; }
+    Node INodeImplement.Node => Node;
 
-    public SaluteSpeechSynthesisNodeImpl(SaluteSpeechSynthesisNode node, IRED red, SaluteSpeechManager saluteSpeechManager)
+    public SaluteSpeechSynthesisNodeImpl(SaluteSpeechSynthesisNode node, IRuntimeNodeScope rns, SaluteSpeechManager saluteSpeechManager)
     {
         Node = node;
-        RED = red;
+        RNS = rns;
         _saluteSpeechManager = saluteSpeechManager;
-        Node.Config = RED.GetConfig(node.Config);
+        Node.Config = RNS.GetConfig(node.Config);
     }
 
     public async Task Execute(NodeMsg input, ExecuteAction callback, ExecutionParameters parameters)
@@ -32,12 +32,12 @@ internal class SaluteSpeechSynthesisNodeImpl : INodeImplement<SaluteSpeechSynthe
 
         var text = input.Payload.ToString()!.TextEllipsis(maxChars);
 
-        RED.Status(new() { Text = "generate..." });
+        RNS.Status(new() { Text = "generate..." });
         var bytes = await client.SynthesizeToBytesWithCacheAsync(text, language: Node.Language, voice: Node.VoiceId);
 
         input.Payload = bytes;
 
-        RED.Status(new() { Text = $"complete {bytes.Length.ToHumanizedSize()}" });
+        RNS.Status(new() { Text = $"complete {bytes.Length.ToHumanizedSize()}" });
 
         callback(input);
     }
