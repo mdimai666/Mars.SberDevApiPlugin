@@ -34,10 +34,6 @@ public class MainSberDevApiPlugin : WebApplicationPlugin
 
         var op = app.Services.GetRequiredService<IOptionService>();
 
-#if DEBUG
-        app.UseDevelopingServePluginFilesDefinition(GetType().Assembly, settings, [typeof(SberDevApiPluginFront).Assembly, GetType().Assembly]);
-#endif
-
         //op.RegisterOption<Example1Plugin1>(appendToInitialSiteData: true);
         //op.SetConstOption(new Example1PluginConstOptionForFront() { ForFrontValue = "123" }, appendToInitialSiteData: true);
 
