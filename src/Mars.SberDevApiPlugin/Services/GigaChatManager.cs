@@ -1,7 +1,7 @@
 using GigaChatAPI;
 using GigaChatAPI.Models;
-using Mars.Host.Shared.Services;
-using Mars.Host.Shared.Startup;
+using Mars.Nodes.Abstractions.Services;
+using Mars.Server.Abstractions.Startup;
 using Mars.SberDevApiPlugin.Front.Nodes.GigaChat;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;

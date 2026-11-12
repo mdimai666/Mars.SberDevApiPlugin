@@ -1,4 +1,4 @@
-@using AppFront.Shared.Components
+@using Mars.Admin.Framework.Components
 @using Mars.Nodes.Core
 @using Mars.Nodes.Core.Attributes
 @using Mars.Nodes.FormEditor
@@ -15,18 +15,18 @@
         </FormItem2>
 
         <FormItem2 For="() => Node.Language">
-            <FluentSelect Items="SaluteSpeechSynthesisNode.AvailableLanguages"
-                          Appearance="Appearance.Outline"
-                          Position="SelectPosition.Below"
+            <FluentSelect TOption="KeyValuePair<string, string>" TValue="string"
+                          Items="SaluteSpeechSynthesisNode.AvailableLanguages"
+                          Appearance="ListAppearance.Outline"
                           OptionValue="@(v=>v.Key)"
                           OptionText="@(v=>v.Value)"
                           @bind-Value="@Node.Language" />
         </FormItem2>
 
         <FormItem2 For="() => Node.VoiceId">
-            <FluentSelect Items="SaluteSpeechSynthesisNode.AvailableVoices"
-                          Appearance="Appearance.Outline"
-                          Position="SelectPosition.Below"
+            <FluentSelect TOption="KeyValuePair<string, string>" TValue="string"
+                          Items="SaluteSpeechSynthesisNode.AvailableVoices"
+                          Appearance="ListAppearance.Outline"
                           OptionValue="@(v=>v.Key)"
                           OptionText="@(v=>v.Value)"
                           @bind-Value="@Node.VoiceId" />

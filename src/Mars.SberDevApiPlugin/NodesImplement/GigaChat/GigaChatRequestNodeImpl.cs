@@ -1,8 +1,9 @@
 using System.Diagnostics;
 using GigaChatAPI.Models;
 using Mars.Core.Extensions;
+using Mars.Nodes.Abstractions;
+using Mars.Nodes.Contracts.Hubs;
 using Mars.Nodes.Core;
-using Mars.Nodes.Host.Shared;
 using Mars.SberDevApiPlugin.Front.Nodes.GigaChat;
 using Mars.SberDevApiPlugin.Services;
 

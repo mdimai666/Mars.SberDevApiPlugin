@@ -1,4 +1,4 @@
-@using AppFront.Shared.Components
+@using Mars.Admin.Framework.Components
 @using Mars.Core.Extensions
 @using Mars.Nodes.Core
 @using Mars.Nodes.Core.Attributes
@@ -19,13 +19,13 @@
         </FormItem2>
 
         <FormItem2 For="() => Node.ModelId">
-            <FluentSelect Items="_availableModels"
-                          Appearance="Appearance.Outline"
-                          Position="SelectPosition.Below"
+            <FluentSelect TOption="KeyValuePair<string, string>" TValue="string"
+                          Items="_availableModels"
+                          Appearance="ListAppearance.Outline"
                           OptionValue="@(v=>v.Key)"
                           OptionText="@(v=>v.Value)"
                           @bind-Value="@Node.ModelId" />
-            <FluentProgressRing Visible="_modelsBusy" />
+            <FluentSpinner Visible="_modelsBusy" />
         </FormItem2>
 
         <FormItem2 For="() => Node.Prompt">

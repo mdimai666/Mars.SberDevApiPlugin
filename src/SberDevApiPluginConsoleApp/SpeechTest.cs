@@ -76,7 +76,7 @@ internal static class SpeechTest
         async Task PlayAsync(string filePath)
         {
             using var audioFile = new AudioFileReader(filePath);
-            using var outputDevice = new WaveOutEvent();
+            using var outputDevice = new WaveOut();
 
             var tcs = new TaskCompletionSource();
 

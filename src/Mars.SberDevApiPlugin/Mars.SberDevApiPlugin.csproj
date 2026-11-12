@@ -22,8 +22,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.9" PrivateAssets="all" />
-        <PackageReference Include="mdimai666.Mars.Plugin.Kit.Host" Version="0.7.7-alpha.20" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.14" PrivateAssets="all" />
+        <PackageReference Include="mdimai666.Mars.Plugin.Sdk" Version="0.8.4-alpha.57">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="mdimai666.Mars.Plugin.Kit.Host" Version="0.8.4-alpha.57" />
     </ItemGroup>
 
     <ItemGroup>
@@ -38,12 +42,9 @@
         </Content>
     </ItemGroup>
 
-    <Target Name="RunPostPublishScript" AfterTargets="111Publish" Condition="'$(Configuration)' == 'Release'">
-        <Exec Command="dotnet $(OutDir)Mars.Plugin.PluginPublishScript.dll --run-postpublish --ProjectName=$(ProjectName) --out=$(PublishDir) --ProjectDir=$(ProjectDir)" />
-    </Target>
-
-    <Target Name="RunPostCompileDebugScript" AfterTargets="111CoreBuild" Condition="'$(Configuration)' == 'Debug'">
-        <Exec Command="dotnet $(OutDir)Mars.Plugin.PluginPublishScript.dll --run-postdebugcompile --ProjectName=$(ProjectName) --out=$(OutDir) --ProjectDir=$(ProjectDir)" />
-    </Target>
+    <!-- Паковка — таргетами пакета mdimai666.Mars.Plugin.Sdk (без явных таргетов здесь):
+         publish Release -> отсечение сборок Марса + манифест + дескриптор + zip;
+         dotnet msbuild -t:MarsPluginPackNuget -c Release -> nupkg;
+         Debug-сборка -> дев-манифест. -->
 
 </Project>

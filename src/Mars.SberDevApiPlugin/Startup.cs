@@ -1,20 +1,20 @@
-using Mars.Host.Shared.Services;
+using Mars.Options.Abstractions.Services;
 using Mars.Plugin.Abstractions;
 using Mars.Plugin.Kit.Host;
-using Mars.Plugin.PluginHost;
 using Mars.SberDevApiPlugin;
 using Mars.SberDevApiPlugin.Front;
 using Mars.SberDevApiPlugin.Front.Nodes.GigaChat;
 using Mars.SberDevApiPlugin.Front.Nodes.SaluteSpeech;
 using Mars.SberDevApiPlugin.Services;
+using Mars.Server.Abstractions.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-[assembly: WebApplicationPlugin(typeof(MainSberDevApiPlugin))]
+[assembly: MarsPlugin(typeof(MainSberDevApiPlugin))]
 
 namespace Mars.SberDevApiPlugin;
 
-public class MainSberDevApiPlugin : WebApplicationPlugin
+public class MainSberDevApiPlugin : MarsPlugin
 {
     public const string PluginPackageName = "mdimai666.Mars.SberDevApiPlugin";
 

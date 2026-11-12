@@ -1,4 +1,4 @@
-@using AppFront.Shared.Components
+@using Mars.Admin.Framework.Components
 @using Mars.Nodes.Core
 @using Mars.Nodes.Core.Attributes
 @using Mars.Nodes.FormEditor
@@ -11,7 +11,7 @@
     <div class="vstack gap-2">
 
         <FormItem2 For="() => Node.AuthKey">
-            <FluentTextField @bind-Value=@Node.AuthKey Class="w-100" TextFieldType="TextFieldType.Password" />
+            <FluentTextInput @bind-Value=@Node.AuthKey Class="w-100" TextInputType="TextInputType.Password" />
         </FormItem2>
 
     </div>
